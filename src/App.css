@@ -37,7 +37,7 @@
   }
 }
 
-.table {
+/* .table {
   margin: 10px auto;
   width: 98%;
   border-collapse: collapse;
@@ -47,7 +47,7 @@
 td, th {
   border: 1px solid purple;
   padding: 3px;
-}
+} */
 
 .active {
   background-color: green;

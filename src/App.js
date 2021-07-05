@@ -1,9 +1,13 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable no-undef */
 /* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
+
 import './App.css';
-import { Table } from './components/Table';
+import { Page } from './components';
 
-function App() {
-  return <Table />;
+export default class App extends React.Component {
+  render() {
+    return <Page />;
+  }
 }
-
-export default App;
