@@ -36,9 +36,9 @@
       "import/prefer-default-export": 0,
       "import/no-extraneous-dependencies": 0,
       "import/no-unresolved": 1,
-  
+      "react/prefer-stateless-function": [0, { "ignorePureComponents": true}],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/destructuring-assignment": 1,
+      "react/destructuring-assignment": [1, "always", { "ignoreClassFields": true}],
       "react/no-find-dom-node": 1,
       "react/no-this-in-sfc": 1,
   
