@@ -37,22 +37,11 @@
   }
 }
 
-/* .table {
-  margin: 10px auto;
-  width: 98%;
-  border-collapse: collapse;
-  outline: 3px solid purple;
+.align-center {
+  text-align: center;
+  vertical-align: middle!important;
 }
-
-td, th {
-  border: 1px solid purple;
-  padding: 3px;
-} */
 
 .active {
-  background-color: green;
-}
-
-.inactive {
-  background-color: red;
+  background-color: #a8ff857c;
 }

@@ -20,7 +20,7 @@ export class Table extends React.Component {
       />
     ));
     return (
-      <table className="table table-striped">
+      <table className="table">
         <tr>{this.props.nameValue}</tr>
         <thead>
           <Header />
