@@ -6,16 +6,19 @@ import { ModalWindow } from './ModalWindow';
 
 export function Page() {
   const [searchValue, setSearchValue] = useState('');
-
+  const [newUserData, setNewUserData] = useState('');
   function handleInput(val) {
     setSearchValue(val);
   }
 
+  function getNewUserDataFromPage(value) {
+    setNewUserData(value);
+  }
   return (
     <>
       <SearchForm handleInput={handleInput} />
-      <Table value={searchValue} />
-      <ModalWindow />
+      <Table searchValue={searchValue} newUserData={newUserData} />
+      <ModalWindow getNewUserDataFromPage={getNewUserDataFromPage} />
     </>
   );
 }
