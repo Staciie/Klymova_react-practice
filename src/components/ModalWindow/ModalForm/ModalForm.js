@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/no-autofocus */
 import React, { useEffect, useState } from 'react';
-
-import users from '../../../data/users.json';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -54,6 +52,7 @@ export function ModalForm(props) {
                 className="form-control"
                 id="formGroupExampleInput"
                 placeholder="Name"
+                autoFocus
               />
             </div>
             <div className="form-group">
