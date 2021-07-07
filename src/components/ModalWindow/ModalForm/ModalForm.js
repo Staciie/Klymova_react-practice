@@ -1,40 +1,42 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import users from '../../../data/users.json';
 
 const { v4: uuidv4 } = require('uuid');
 
 export function ModalForm(props) {
   const [isOpen, setIsOpen] = useState(props.isOpen);
+  const [data, setData] = useState(users);
+
+  const [newUserData, setNewUserData] = useState({
+    name: '',
+    description: '',
+    done: false,
+    time: '',
+    id: '',
+  });
 
   useEffect(() => {
     setIsOpen(props.isOpen);
+    setNewUserData({ ...newUserData, id: uuidv4().toString().slice(0, 2), time: new Date() });
   }, [props.isOpen]);
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [done, setDone] = useState(false);
-  const [time, setTime] = useState(new Date());
-  const [id, setId] = useState(uuidv4().toString().slice(0, 2));
-  const newUserData = { id, name, time, description, done };
   function closeModal() {
     setIsOpen(false);
     props.updateIsOpen(false);
   }
 
   function prepareInputValue() {
-    setId(uuidv4().toString().slice(0, 2));
-    setTime(new Date());
-    props.getNewUserData(newUserData);
-    setName('');
-    setDescription('');
-    setDone(false);
     closeModal();
+    setNewUserData({ ...newUserData, name: '', description: '', done: false });
+    setData(data.concat(newUserData));
+    props.getNewUserData(data);
   }
 
-  function checkInputs(event) {
+  function onSubmit(event) {
     event.preventDefault();
-    if (!name || !description) {
+    if (!newUserData.name || !newUserData.description) {
       alert('Empty fields are not allowed');
     } else {
       prepareInputValue();
@@ -51,13 +53,13 @@ export function ModalForm(props) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form onSubmit={checkInputs}>
+          <form onSubmit={onSubmit}>
             <div className="form-group">
               <input
                 key="random1"
                 name="name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+                value={newUserData.name}
+                onChange={(event) => setNewUserData({ ...newUserData, name: event.target.value })}
                 type="text"
                 className="form-control"
                 id="formGroupExampleInput"
@@ -67,8 +69,10 @@ export function ModalForm(props) {
             <div className="form-group">
               <input
                 name="description"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                value={newUserData.description}
+                onChange={(event) =>
+                  setNewUserData({ ...newUserData, description: event.target.value })
+                }
                 type="text"
                 className="form-control"
                 id="formGroupExampleInput"
@@ -79,8 +83,8 @@ export function ModalForm(props) {
               <input
                 className="form-check-input"
                 type="checkbox"
-                value={done}
-                onChange={() => setDone((prev) => !done)}
+                value={newUserData.done}
+                onChange={() => setNewUserData({ ...newUserData, done: !newUserData.done })}
                 id="defaultCheck1"
               />
               <label className="form-check-label" htmlFor="defaultCheck1">
@@ -91,7 +95,7 @@ export function ModalForm(props) {
               value="Add"
               type="submit"
               className="btn btn-secondary float-right mt-3"
-              onClick={checkInputs}
+              onClick={onSubmit}
             />
           </form>
         </div>

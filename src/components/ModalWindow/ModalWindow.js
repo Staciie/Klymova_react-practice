@@ -16,7 +16,8 @@ export function ModalWindow(props) {
   function getNewUserData(value) {
     setNewUserData(value);
   }
-  props.getNewUserDataFromPage(newUserData);
+
+  props.getNewUserData(newUserData);
   return (
     <>
       <Button onClick={onClick} />
