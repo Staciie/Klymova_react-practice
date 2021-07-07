@@ -1,22 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const { v4: uuidv4 } = require('uuid');
 
 const newUserObj = { name: '', description: '', done: false, time: '', id: '' };
 
 export function ModalForm(props) {
-  const [isOpen, setIsOpen] = useState(props.isOpen);
   const [newUserData, setNewUserData] = useState(newUserObj);
 
-  useEffect(() => {
-    setIsOpen(props.isOpen);
-    setNewUserData({ ...newUserData, id: uuidv4().toString().slice(0, 2), time: new Date() });
-  }, [props.isOpen]);
-
   function closeModal() {
-    setIsOpen(false);
     props.updateIsOpen(false);
   }
 
@@ -31,7 +24,7 @@ export function ModalForm(props) {
     }
   }
 
-  if (isOpen) {
+  if (props.isOpen) {
     return (
       <div className="modal">
         <div className="modal_content">
@@ -47,7 +40,14 @@ export function ModalForm(props) {
                 key="random1"
                 name="name"
                 value={newUserData.name}
-                onChange={(event) => setNewUserData({ ...newUserData, name: event.target.value })}
+                onChange={(event) =>
+                  setNewUserData({
+                    ...newUserData,
+                    name: event.target.value,
+                    id: uuidv4().toString().slice(0, 2),
+                    time: new Date(),
+                  })
+                }
                 type="text"
                 className="form-control"
                 id="formGroupExampleInput"
