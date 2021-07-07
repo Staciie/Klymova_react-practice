@@ -16,9 +16,9 @@ export function Page() {
   }
 
   function getNewUserData(value) {
-    setData(value);
+    setData([value, ...data]);
   }
-  console.log(data);
+  // console.log(data);
 
   return (
     <>

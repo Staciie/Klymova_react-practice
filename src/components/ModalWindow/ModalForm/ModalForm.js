@@ -1,21 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+
 import users from '../../../data/users.json';
 
 const { v4: uuidv4 } = require('uuid');
 
+const newUserObj = { name: '', description: '', done: false, time: '', id: '' };
+
 export function ModalForm(props) {
   const [isOpen, setIsOpen] = useState(props.isOpen);
-  const [data, setData] = useState(users);
-
-  const [newUserData, setNewUserData] = useState({
-    name: '',
-    description: '',
-    done: false,
-    time: '',
-    id: '',
-  });
+  const [newUserData, setNewUserData] = useState(newUserObj);
 
   useEffect(() => {
     setIsOpen(props.isOpen);
@@ -27,19 +22,14 @@ export function ModalForm(props) {
     props.updateIsOpen(false);
   }
 
-  function prepareInputValue() {
-    closeModal();
-    setNewUserData({ ...newUserData, name: '', description: '', done: false });
-    setData(data.concat(newUserData));
-    props.getNewUserData(data);
-  }
-
   function onSubmit(event) {
     event.preventDefault();
     if (!newUserData.name || !newUserData.description) {
       alert('Empty fields are not allowed');
     } else {
-      prepareInputValue();
+      props.getNewUserData(newUserData);
+      closeModal();
+      setNewUserData({ ...newUserData, name: '', description: '', done: false });
     }
   }
 

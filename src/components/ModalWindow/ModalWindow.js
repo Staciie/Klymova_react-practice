@@ -5,7 +5,6 @@ import { ModalForm } from './ModalForm';
 
 export function ModalWindow(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [newUserData, setNewUserData] = useState('');
   function onClick() {
     setIsOpen(!isOpen);
   }
@@ -13,15 +12,14 @@ export function ModalWindow(props) {
     setIsOpen(value);
   }
 
-  function getNewUserData(value) {
-    setNewUserData(value);
-  }
-
-  props.getNewUserData(newUserData);
   return (
     <>
       <Button onClick={onClick} />
-      <ModalForm isOpen={isOpen} updateIsOpen={updateIsOpen} getNewUserData={getNewUserData} />
+      <ModalForm
+        isOpen={isOpen}
+        updateIsOpen={updateIsOpen}
+        getNewUserData={props.getNewUserData}
+      />
     </>
   );
 }

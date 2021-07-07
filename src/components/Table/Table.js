@@ -5,13 +5,8 @@ import { Header, Row } from './components';
 import users from '../../data/users.json';
 
 export function Table(props) {
-  const [data, setData] = useState(props.data);
-
-  console.log(data);
-
-  const { searchValue, newUserData } = props;
+  const { searchValue, data } = props;
   // const { id, name, time, description, done } = newUserData;
-
   const filterValue = searchValue.toLowerCase();
   // const filteredData = data.filter((elem) => elem.name.toLowerCase().includes(filterValue));
   // if (!newUserData) {
