@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 
 import { SearchForm } from './SearchForm';
@@ -8,7 +7,6 @@ import users from '../data/users.json';
 
 export function Page() {
   const [searchValue, setSearchValue] = useState('');
-  const [newUserData, setNewUserData] = useState('');
   const [data, setData] = useState(users);
 
   function handleInput(val) {
