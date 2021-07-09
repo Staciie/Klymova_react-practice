@@ -5,7 +5,7 @@ export function Button(props) {
     <button
       type="button"
       className="btn btn-secondary btn-lg my-3 float-right button-width"
-      onClick={() => props.onClick()}
+      onClick={() => props.setIsOpen(!props.isOpen)}
     >
       Add
     </button>
