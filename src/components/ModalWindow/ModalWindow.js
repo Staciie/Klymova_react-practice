@@ -16,7 +16,7 @@ export function ModalWindow(props) {
       <ModalForm
         isOpen={isOpen}
         updateIsOpen={updateIsOpen}
-        getNewUserData={props.getNewUserData}
+        createUserElem={props.createUserElem}
       />
     </>
   );

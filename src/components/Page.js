@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 
 import { SearchForm } from './SearchForm';
 import { Table } from './Table';
 import { ModalWindow } from './ModalWindow';
-import users from '../data/users.json';
+import { useTableApi } from '../hooks/useTableApi';
+// import users from '../data/db.json';
 
 export function Page() {
   const [searchValue, setSearchValue] = useState('');
-  const [data, setData] = useState(users);
-
-  function handleInput(val) {
-    setSearchValue(val);
-  }
-
-  function getNewUserData(value) {
-    setData([value, ...data]);
-  }
+  const [data, api] = useTableApi('http://localhost:3004/users');
+  const { createUserElem, filterUsers } = api;
 
   return (
     <>
-      <SearchForm handleInput={handleInput} />
+      <ModalWindow createUserElem={createUserElem} />
+      <SearchForm filterUsers={filterUsers} />
       <Table data={data} searchValue={searchValue} />
-      <ModalWindow getNewUserData={getNewUserData} />
     </>
   );
 }
