@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react';
@@ -21,10 +21,11 @@ export function ModalForm(props) {
     if (!newUserData.name || !newUserData.description) {
       alert('Empty fields are not allowed');
     } else {
-      setNewUserData({ ...newUserData, time: new Date(), id: uuidv4().toString().slice(0, 2) });
-      props.getNewUserData(newUserData);
-      closeModal();
-      setNewUserData(newUserObj);
+      props.getNewUserData({
+        ...newUserData,
+        time: new Date(),
+        id: uuidv4().toString().slice(0, 2),
+      });
     }
   }
   return (
@@ -46,6 +47,8 @@ export function ModalForm(props) {
                 setNewUserData({
                   ...newUserData,
                   name: event.target.value,
+                  // id: uuidv4().toString().slice(0, 2),
+                  // time: new Date(),
                 })
               }
               type="text"
