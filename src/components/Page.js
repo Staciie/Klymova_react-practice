@@ -1,30 +1,27 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-console */
-/* eslint-disable react/no-this-in-sfc */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-import React, { setState } from 'react';
+import React, { useState } from 'react';
 
 import { SearchForm } from './SearchForm';
 import { Table } from './Table';
+import { ModalWindow } from './ModalWindow';
+import users from '../data/users.json';
 
-export class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: '' };
+export function Page() {
+  const [searchValue, setSearchValue] = useState('');
+  const [data, setData] = useState(users);
+
+  function handleInput(val) {
+    setSearchValue(val);
   }
 
-  handleInput = (val) => {
-    this.setState({ value: val });
-  };
-
-  render() {
-    return (
-      <>
-        <SearchForm handleInput={this.handleInput} />
-        <Table value={this.state.value} />
-      </>
-    );
+  function getNewUserData(value) {
+    setData([value, ...data]);
   }
+
+  return (
+    <>
+      <SearchForm handleInput={handleInput} />
+      <Table data={data} searchValue={searchValue} />
+      <ModalWindow getNewUserData={getNewUserData} />
+    </>
+  );
 }
