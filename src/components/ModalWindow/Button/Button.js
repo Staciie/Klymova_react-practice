@@ -5,7 +5,9 @@ export function Button(props) {
     <button
       type="button"
       className="btn btn-secondary btn-lg mt-3 button-width"
-      onClick={() => props.setIsOpen(!props.isOpen)}
+      onClick={() => {
+        props.setIsOpen(!props.isOpen);
+      }}
     >
       Add
     </button>
