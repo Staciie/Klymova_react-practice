@@ -4,12 +4,12 @@ import { Button } from './Button';
 import { ModalForm } from './ModalForm';
 
 export function ModalWindow(props) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      <Button setIsOpen={setIsOpen} isOpen={isOpen} />
-      <ModalForm isOpen={isOpen} setIsOpen={setIsOpen} createUserElem={props.createUserElem} />
+      <Button setOpen={setOpen} open={open} />
+      <ModalForm open={open} setOpen={setOpen} createUserElem={props.createUserElem} />
     </>
   );
 }

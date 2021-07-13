@@ -20,27 +20,41 @@ export function InputField(props) {
     if (props.onBlur) props.onBlur(value);
   };
 
-  if (type === 'text') {
-    return (
-      <TextField
-        color="primary"
-        fullWidth="true"
-        margin="dense"
-        {...field}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched && Boolean(error)}
-        helperText={touched && error}
-      />
-    );
-  }
-  return (
-    <>
-      <MuiCheckbox {...field} checked={field.value} color="primary" size="medium" />
-    </>
+  return type === 'text' ? (
+    <TextField
+      color="primary"
+      fullWidth="true"
+      margin="dense"
+      {...field}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      error={touched && Boolean(error)}
+      helperText={touched && error}
+    />
+  ) : (
+    <MuiCheckbox {...field} checked={field.value} color="primary" size="medium" />
   );
+  // if (type === 'text') {
+  //   return (
+  //     <TextField
+  //       color="primary"
+  //       fullWidth="true"
+  //       margin="dense"
+  //       {...field}
+  //       name={name}
+  //       type={type}
+  //       placeholder={placeholder}
+  //       value={value}
+  //       onChange={handleChange}
+  //       onBlur={handleBlur}
+  //       error={touched && Boolean(error)}
+  //       helperText={touched && error}
+  //     />
+  //   );
+  // }
+  // <MuiCheckbox {...field} checked={field.value} color="primary" size="medium" />;
 }

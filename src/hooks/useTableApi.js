@@ -23,8 +23,8 @@ export function useTableApi(url) {
   };
 
   const filterUsers = async (substr) => {
-    const results = await fetch(`http://localhost:3004/users?name_like=${substr}`).then(
-      (resultData) => resultData.json()
+    const results = await fetch(`${url}?name_like=${substr}`).then((resultData) =>
+      resultData.json()
     );
     setData(results);
   };

@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { SearchForm } from './SearchForm';
 import { Table } from './Table';
 import { ModalWindow } from './ModalWindow';
 import { useTableApi } from '../hooks/useTableApi';
-// import users from '../data/db.json';
 
 export function Page() {
   const [searchValue, setSearchValue] = useState('');

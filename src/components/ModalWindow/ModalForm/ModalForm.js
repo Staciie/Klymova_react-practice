@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Button } from '@material-ui/core';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 
 import { InputField } from './InputField';
 
@@ -14,8 +14,8 @@ const SignupSchema = Yup.object().shape({
   description: Yup.string().max(40).required(),
 });
 
-export function ModalForm({ isOpen, setIsOpen, createUserElem }) {
-  if (!isOpen) return null;
+export function ModalForm({ open, setOpen, createUserElem }) {
+  if (!open) return null;
 
   return (
     <Formik
@@ -23,39 +23,42 @@ export function ModalForm({ isOpen, setIsOpen, createUserElem }) {
       validationSchema={SignupSchema}
       onSubmit={(values) => {
         createUserElem({ ...values, time: new Date() });
-        setIsOpen(false);
+        setOpen(false);
       }}
     >
       {() => (
-        <div className="modal">
-          <div className="modal_content" justify="center">
-            <div className="modal_content-header">
-              <p>Insert your data</p>
-              <button
-                type="button"
-                className="close"
-                aria-label="Close"
-                onClick={() => setIsOpen(false)}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+        <Dialog open={open} aria-labelledby="dialog-form-title" TransitionComponent="Zoom">
+          <DialogTitle id="dialog-form-title">
+            Insert your data
+            <button
+              type="button"
+              className="close"
+              aria-label="Close"
+              onClick={() => setOpen(false)}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </DialogTitle>
+          <DialogContent>
             <Form style={{ textAlign: 'center' }}>
               <InputField name="name" placeholder="Name" type="text" />
               <InputField name="description" placeholder="Description" type="text" />
               <InputField name="done" placeholder="Description" type="checkbox" />
-              <Button
-                type="submit"
-                color="primary"
-                size="small"
-                fullWidth="true"
-                variant="outlined"
-              >
-                Add
-              </Button>
+              <DialogActions>
+                <Button
+                  type="submit"
+                  color="primary"
+                  size="small"
+                  fullWidth="true"
+                  variant="outlined"
+                >
+                  Add
+                </Button>
+              </DialogActions>
             </Form>
-          </div>
-        </div>
+          </DialogContent>
+          {/* </div> */}
+        </Dialog>
       )}
     </Formik>
   );
