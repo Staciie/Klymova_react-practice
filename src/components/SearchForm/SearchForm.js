@@ -23,7 +23,7 @@ export function SearchForm(props) {
         type="submit"
         id="button-addon2"
         onClick={() => {
-          props.handleInput(searchValue);
+          props.filterUsers(searchValue);
         }}
       />
     </div>

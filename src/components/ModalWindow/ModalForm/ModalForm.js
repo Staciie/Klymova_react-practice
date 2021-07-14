@@ -1,91 +1,65 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/no-autofocus */
-import React, { useState } from 'react';
+import React from 'react';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 
-const { v4: uuidv4 } = require('uuid');
+import { InputField } from './InputField';
 
 const newUserObj = { name: '', description: '', done: false, time: '', id: '' };
+const SignupSchema = Yup.object().shape({
+  name: Yup.string()
+    .max(20)
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
+    .required(),
+  description: Yup.string().max(40).required(),
+});
 
-export function ModalForm(props) {
-  if (!props.isOpen) return null;
+export function ModalForm({ open, setOpen, createUserElem }) {
+  if (!open) return null;
 
-  const [newUserData, setNewUserData] = useState(newUserObj);
-
-  function closeModal() {
-    props.updateIsOpen(false);
-  }
-
-  function onSubmit(event) {
-    event.preventDefault();
-    if (!newUserData.name || !newUserData.description) {
-      alert('Empty fields are not allowed');
-    } else {
-      props.getNewUserData({
-        ...newUserData,
-        time: new Date(),
-        id: uuidv4().toString().slice(0, 2),
-      });
-    }
-  }
   return (
-    <div className="modal">
-      <div className="modal_content">
-        <div className="modal_content-header mb-3">
-          <p>Insert your data</p>
-          <button type="button" className="close" aria-label="Close" onClick={closeModal}>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              key="random1"
-              name="name"
-              value={newUserData.name}
-              onChange={(event) =>
-                setNewUserData({
-                  ...newUserData,
-                  name: event.target.value,
-                  // id: uuidv4().toString().slice(0, 2),
-                  // time: new Date(),
-                })
-              }
-              type="text"
-              className="form-control"
-              id="formGroupExampleInput"
-              placeholder="Name"
-              autoFocus
-            />
-          </div>
-          <div className="form-group">
-            <input
-              name="description"
-              value={newUserData.description}
-              onChange={(event) =>
-                setNewUserData({ ...newUserData, description: event.target.value })
-              }
-              type="text"
-              className="form-control"
-              id="formGroupExampleInput"
-              placeholder="Description"
-            />
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value={newUserData.done}
-              onChange={() => setNewUserData({ ...newUserData, done: !newUserData.done })}
-              id="defaultCheck1"
-            />
-            <label className="form-check-label" htmlFor="defaultCheck1">
-              Done
-            </label>
-          </div>
-          <input value="Add" type="submit" className="btn btn-secondary float-right mt-3" />
-        </form>
-      </div>
-    </div>
+    <Formik
+      initialValues={newUserObj}
+      validationSchema={SignupSchema}
+      onSubmit={(values) => {
+        createUserElem({ ...values, time: new Date() });
+        setOpen(false);
+      }}
+    >
+      {() => (
+        <Dialog open={open} aria-labelledby="dialog-form-title" TransitionComponent="Zoom">
+          <DialogTitle id="dialog-form-title">
+            Insert your data
+            <button
+              type="button"
+              className="close"
+              aria-label="Close"
+              onClick={() => setOpen(false)}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </DialogTitle>
+          <DialogContent>
+            <Form style={{ textAlign: 'center' }}>
+              <InputField name="name" placeholder="Name" type="text" />
+              <InputField name="description" placeholder="Description" type="text" />
+              <InputField name="done" placeholder="Description" type="checkbox" />
+              <DialogActions>
+                <Button
+                  type="submit"
+                  color="primary"
+                  size="small"
+                  fullWidth="true"
+                  variant="outlined"
+                >
+                  Add
+                </Button>
+              </DialogActions>
+            </Form>
+          </DialogContent>
+          {/* </div> */}
+        </Dialog>
+      )}
+    </Formik>
   );
 }
